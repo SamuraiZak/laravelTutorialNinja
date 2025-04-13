@@ -1,9 +1,9 @@
 <x-layout>
     <form
-        action="{{ route('ninjas.store')}}"
+        action="{{ route('ninjas.store') }}"
         method="POST"
     >
-    @csrf
+        @csrf
 
         <h2>Create a New Ninja</h2>
 
@@ -23,6 +23,7 @@
             type="number"
             id="skill"
             name="skill"
+            value="{{ old('skill') }}"
             required
         >
 
@@ -33,7 +34,7 @@
             id="bio"
             name="bio"
             required
-        ></textarea>
+        >{{ old('bio') }}</textarea>
 
         <!-- select a dojo -->
         <label for="dojo_id">Dojo:</label>
@@ -48,7 +49,7 @@
                 selected
             >Select a dojo</option>
             @foreach ($dojos as $dojo)
-                <option value="{{ $dojo->id }}">{{ $dojo->name }}</option>
+                <option value="{{ $dojo->id }}" {{ $dojo->id == old('dojo_id') ? 'selected' : ''}}>{{ $dojo->name }}</option>
             @endforeach
         </select>
 
@@ -58,6 +59,13 @@
         >Create Ninja</button>
 
         <!-- validation errors -->
+        @if ($errors->any())
+            <ul class="px-4 py2 bg-red-100">
+                @foreach ($errors->all() as $error)
+                    <li class="my-2 text-red-500">{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
     </form>
 </x-layout>
