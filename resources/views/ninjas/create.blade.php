@@ -1,7 +1,7 @@
 <x-layout>
     <form
-        action=""
-        method=""
+        action="{{ route('ninjas.store')}}"
+        method="POST"
     >
     @csrf
 
